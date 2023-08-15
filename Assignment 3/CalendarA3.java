@@ -2,7 +2,8 @@
 // Date: 6/11/2023
 // Class: CS &141
 // Assignment: Assignment 3 
-// Purpose: Creates a calendar that allows users to view and navigate through different months, plan events, and save the calendar with events to a file.
+// Purpose: Creates a calendar that allows users to view and navigate through different months, plan 
+// events, and save the calendar with events to a file.
 
 import java.util.Scanner;
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import java.io.PrintWriter;
 
 public class CalendarA3 {
     private static final String[] MONTH_NAMES = {
+        // Array containing month names
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     };
@@ -30,10 +32,10 @@ public class CalendarA3 {
                          "    Cat Calendar";
 
         Scanner scanner = new Scanner(System.in);
-        int inputMonth = LocalDate.now().getMonthValue();
-        int inputDay = LocalDate.now().getDayOfMonth();
+        int inputMonth = LocalDate.now().getMonthValue(); // gets current month
+        int inputDay = LocalDate.now().getDayOfMonth(); // gets current day
 
-        loadEventsFromFile();
+        loadEventsFromFile(); // load events from file into eventArray
 
         System.out.println("What date would you like to look at? (mm/dd)");
         String inputDate = scanner.nextLine();
@@ -42,14 +44,16 @@ public class CalendarA3 {
         int day = Integer.parseInt(dateParts[1]);
 
         System.out.println(catHead);
-        drawMonth(month, day);
+        drawMonth(month, day); // Display calendar for specified month/day
 
         System.out.println("\nCurrent Date:\n");
-        drawMonth(inputMonth, inputDay);
+        drawMonth(inputMonth, inputDay); // display calendar current month/day
 
         String command = "";
         while (!command.equals("q")) {
+            // User menu
             System.out.println("\nUser Menu:");
+            // User menu options
             System.out.println("Enter 'n' to display the next month");
             System.out.println("Enter 'p' to display the previous month");
             System.out.println("Enter 'e' to enter a date and display the corresponding calendar");
@@ -62,16 +66,19 @@ public class CalendarA3 {
             command = scanner.nextLine();
 
             if (command.equals("n")) {
+                // Display the next month
                 month++;
                 if (month > 12)
                     month = 1;
                 drawMonth(month, day);
             } else if (command.equals("p")) {
+                // Display the previous month
                 month--;
                 if (month < 1)
                     month = 12;
                 drawMonth(month, day);
             } else if (command.equals("e")) {
+                // Enter a specific date and display the calendar
                 System.out.print("Enter a date (mm/dd): ");
                 inputDate = scanner.nextLine();
                 dateParts = inputDate.split("/");
@@ -201,7 +208,7 @@ public class CalendarA3 {
     public static void printMonthToFile(int month, String fileName) {
         try {
             PrintWriter writer = new PrintWriter(fileName);
-            drawMonthToFile(month, writer);
+            drawMonthToFile(month, writer); // write the calendar content to file
             writer.close();
             System.out.println("Calendar printed to file: " + fileName);
         } catch (FileNotFoundException e) {
